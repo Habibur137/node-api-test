@@ -13,3 +13,10 @@ app.all("*", (_req, res) => {
 app.listen(port, () => {
   console.log("app running");
 });
+
+const arr = [{ name: "habib", age: "20", id: 1 }];
+const a = arr.find((b) => b.id === 1);
+// console.log(a);
+a.name = "lima";
+console.log(arr);
+console.log(a);

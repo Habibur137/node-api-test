@@ -38,12 +38,19 @@ module.exports.updateAnUser = (req, res) => {
   const filter = Number(id);
   if (!isNaN(filter)) {
     const updatedUser = data.find((user) => user.id === filter);
-    updatedUser.name = req.body?.name;
-    updatedUser.contact = req.body?.contact;
-    updatedUser.gender = req.body?.gender;
-    updatedUser.address = req.body?.address;
-    updatedUser.photoURL = req.body?.photoURL;
-    updatedUser.id = req.body?.id;
+    updatedUser.name = req.body?.name ? req.body?.name : updatedUser.name;
+    updatedUser.contact = req.body?.contact
+      ? req.body?.contact
+      : updatedUser.contact;
+    updatedUser.gender = req.body?.gender
+      ? req.body?.gender
+      : updatedUser.gender;
+    updatedUser.address = req.body?.address
+      ? req.body?.address
+      : updatedUser.address;
+    updatedUser.photoURL = req.body?.photoURL
+      ? req.body?.photoURL
+      : updatedUser.photoURL;
     res.send({ data, updatedUser });
   } else {
     res.send({ message: "Give a valid id" });
