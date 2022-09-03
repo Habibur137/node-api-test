@@ -1,11 +1,11 @@
 const data = require("../database/data.json");
 const genarateNumber = require("../utils/genareteNumber");
+const nextUserId = require("../utils/maxId");
 
 // all user api
 module.exports.allUsers = (req, res) => {
   const { limit } = req.query;
   if (limit) {
-    console.log("data");
     const limitData = data.slice(0, limit);
     res.send(limitData);
   } else {
@@ -21,10 +21,9 @@ module.exports.pickRandomUser = (_req, res) => {
 // add user api
 module.exports.addUser = (req, res) => {
   const user = req.body;
-  const { name, id, contact, gender, address } = user;
-  if (id && name && contact && gender && address) {
-    console.log(user);
-    data.push(user);
+  const { name, contact, gender, address, photoURL } = user;
+  if (name && contact && gender && address && photoURL) {
+    data.push({ ...user, id: nextUserId(data) });
     res.send(data);
   } else {
     res.send({ message: "data field is missing" });
@@ -34,7 +33,6 @@ module.exports.addUser = (req, res) => {
 // update user api
 module.exports.updateAnUser = (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const filter = Number(id);
   if (!isNaN(filter)) {
     const updatedUser = data.find((user) => user.id === filter);

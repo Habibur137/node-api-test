@@ -1,3 +1,6 @@
-const data = require("../database/data.json");
+const nextUserId = (data) => {
+  const maxId = data.reduce((maxId, user) => Math.max(user.id, maxId), -1);
+  return maxId + 1;
+};
 
-const getMaxId = () => data.reduce(Math.max(MaxId, current.id), -1);
+module.exports = nextUserId;

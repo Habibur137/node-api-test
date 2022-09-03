@@ -7,6 +7,11 @@ const userRouter = require("./routes/users.routes.js");
 app.use([cors(), express.json()]);
 app.use("/user", userRouter);
 
+// home route
+app.get("/", (_req, res) => {
+  res.send({ message: "home page" });
+});
+
 app.all("*", (_req, res) => {
   res.send("No Path Found");
 });
